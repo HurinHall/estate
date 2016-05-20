@@ -2,7 +2,7 @@
 		<div class="container">
 			<div class="row bottom-footer text-center-mobile">
 				<div class="col-sm-8">
-					<p>&copy; 2016 All Rights Reserved.</p>
+					<p><?=copyright;?><br><?=based;?></p>
 				</div>
 			</div>
 		</div>

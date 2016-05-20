@@ -34,17 +34,26 @@ class User extends CI_Controller {
   	}
   	
 	public function index(){
+		if(!$this->user_session->checklogin()){
+			redirect('/','reload');
+		}
 		$this->load->view('dashboard');
 	}
 	
 	public function rental($page = 1){
-		$data['List'] = json_decode($this->User_model->getRentalList($this->tools->encode_pass($this->user_session->getuid(),"iceloof","decode",3600*24*7),1),true);
+		if(!$this->user_session->checklogin()){
+			redirect('/','reload');
+		}
+		$data['List'] = json_decode($this->User_model->getRentalList($this->tools->encode_pass($this->user_session->getuid(),"iceloof","decode",3600*24*7),$page),true);
 		$data['TotalPage'] = $this->User_model->getRentalTotalPage($this->tools->encode_pass($this->user_session->getuid(),"iceloof","decode",3600*24*7));
 		$data['page'] = $page;
 		$this->load->view('rentalmanage',$data);
 	}
 	
 	public function rentalAdd(){
+		if(!$this->user_session->checklogin()){
+			redirect('/','reload');
+		}
 		$data['cityList'] = $this->tools->cityList("New Zealand");
 		$data['districtsList'] = $this->tools->districtsList("New Zealand",$data['cityList'][0]);
 		$data['suburbList'] = $this->tools->suburbList($data['districtsList'][0]);
@@ -52,6 +61,7 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('phone', 'Phone', 'required|max_length[50]');
 		$this->form_validation->set_rules('email', 'Email', 'required|max_length[50]|valid_email');
 		$this->form_validation->set_rules('price', 'Price', 'required|is_natural');
+		$this->form_validation->set_rules('address', 'Address', 'required');
 		$this->form_validation->set_rules('available', 'Available', 'required');
 		$this->form_validation->set_rules('introduction', 'Introduction', 'required');
 		$data['error'] = "";
@@ -64,6 +74,7 @@ class User extends CI_Controller {
         	$city = $this->input->post('city');
         	$districts = $this->input->post('districts');
         	$suburbs = $this->input->post('suburbs');
+        	$address = $this->input->post('address');
         	$price = $this->input->post('price');
         	$available = $this->input->post('available');
         	$bedroom = $this->input->post('bedroom');
@@ -90,7 +101,7 @@ class User extends CI_Controller {
         	$introduction = $this->input->post('introduction');
         	$uid = $this->tools->encode_pass($this->user_session->getuid(),"iceloof","decode",3600*24*7);
         	$publisher = $this->user_session->getusername();
-        	if($this->User_model->addRental($uid,$publisher,$phone,$email,$title,$city,$districts,$suburbs,$price,$available,$bedroom,$bathroom,$parking,$type,$entire,$kitchen,$balcony,$gym,$pets,$tv,$microware,$hob,$oven,$fridge,$washmachine,$dryer,$dishwasher,$heater,$tables,$beds,$chairs,$introduction)){
+        	if($this->User_model->addRental($uid,$publisher,$phone,$email,$title,$city,$districts,$suburbs,$address,$price,$available,$bedroom,$bathroom,$parking,$type,$entire,$kitchen,$balcony,$gym,$pets,$tv,$microware,$hob,$oven,$fridge,$washmachine,$dryer,$dishwasher,$heater,$tables,$beds,$chairs,$introduction)){
 	        	redirect('/user/rental','reload');
         	}else{
         		$data['error'] = "Add Failed! Try Again Later";
@@ -100,6 +111,9 @@ class User extends CI_Controller {
 	}
 	
 	public function rentalUpdate($id){
+		if(!$this->user_session->checklogin()){
+			redirect('/','reload');
+		}
 		if(!$this->User_model->checkRental($this->tools->encode_pass($this->user_session->getuid(),"iceloof","decode",3600*24*7),$id)){
 			redirect('/user/rental','reload');
 		}
@@ -111,6 +125,7 @@ class User extends CI_Controller {
 		$this->form_validation->set_rules('title', 'Title', 'required|max_length[50]');
 		$this->form_validation->set_rules('phone', 'Phone', 'required|max_length[50]');
 		$this->form_validation->set_rules('email', 'Email', 'required|max_length[50]|valid_email');
+		$this->form_validation->set_rules('address', 'Address', 'required');
 		$this->form_validation->set_rules('price', 'Price', 'required|is_natural');
 		$this->form_validation->set_rules('available', 'Available', 'required');
 		$this->form_validation->set_rules('introduction', 'Introduction', 'required');
@@ -129,6 +144,7 @@ class User extends CI_Controller {
         	$city = $this->input->post('city');
         	$districts = $this->input->post('districts');
         	$suburbs = $this->input->post('suburbs');
+        	$address = $this->input->post('address');
         	$price = $this->input->post('price');
         	$available = $this->input->post('available');
         	$bedroom = $this->input->post('bedroom');
@@ -155,7 +171,7 @@ class User extends CI_Controller {
         	$introduction = $this->input->post('introduction');
         	$uid = $this->tools->encode_pass($this->user_session->getuid(),"iceloof","decode",3600*24*7);
         	$publisher = $this->user_session->getusername();
-        	if($this->User_model->updateRental($uid,$id,$phone,$email,$title,$city,$districts,$suburbs,$price,$available,$bedroom,$bathroom,$parking,$type,$entire,$kitchen,$balcony,$gym,$pets,$tv,$microware,$hob,$oven,$fridge,$washmachine,$dryer,$dishwasher,$heater,$tables,$beds,$chairs,$introduction)){
+        	if($this->User_model->updateRental($uid,$id,$phone,$email,$title,$city,$districts,$suburbs,$address,$price,$available,$bedroom,$bathroom,$parking,$type,$entire,$kitchen,$balcony,$gym,$pets,$tv,$microware,$hob,$oven,$fridge,$washmachine,$dryer,$dishwasher,$heater,$tables,$beds,$chairs,$introduction)){
 	        	redirect('/user/rental','reload');
         	}else{
         		$data['error'] = "Add Failed! Try Again Later";
@@ -165,6 +181,9 @@ class User extends CI_Controller {
 	}
 	
 	public function rentalDel($id){
+		if(!$this->user_session->checklogin()){
+			redirect('/','reload');
+		}
 		if($this->User_model->deleteRental($this->tools->encode_pass($this->user_session->getuid(),"iceloof","decode",3600*24*7),$id)){
 			redirect('/user/rental','reload');
 		}else{

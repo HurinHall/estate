@@ -31,9 +31,9 @@
 			<!-- Collect the nav links, forms, and other content for toggling -->
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 				<ul class="nav navbar-nav navbar-right main-nav">
-					<li><a href="/rental">Rental</a></li>
-					<li><a href="/forsale">For Sale</a></li>
-					<li><a href="/about">About</a></li>
+					<li><a href="<?=base_url('/rental');?>">Rental</a></li>
+					<!--<li><a href="/forsale">For Sale</a></li>-->
+					<li><a href="<?=base_url();?>">About</a></li>
 					<?
 						if(!$this->user_session->checklogin()){
 					?>

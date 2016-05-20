@@ -52,6 +52,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 switch ($_SERVER['HTTP_HOST']) {
     case 'estate.localhost.iceloof':
         $route['default_controller'] = "estate"; 
+        $route['rentalDetail'] = "rental/rentalDetail"; 
         $route['register'] = "user/register";  
         break;
 }

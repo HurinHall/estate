@@ -135,7 +135,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="<?=base_url("/user/logout");?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -153,9 +153,11 @@
 						<li>
                             <a href="<?=base_url("/user/rental");?>"><i class="fa fa-building fa-fw"></i> Estate Rental</a>
                         </li>
+                        <!--
 						<li>
                             <a href="<?=base_url("/user/sale");?>"><i class="fa fa-home fa-fw"></i> Estate Sale</a>
-                        </li>                        
+                        </li>         
+                        -->               
                     </ul>
                     <br>
                     <center>
@@ -216,6 +218,8 @@
 						<? } ?>
 						</select>
 	            	</div>
+	            	<div class="col-md-3 col-sm-3"><label>Address</label></div>
+	            	<div class="col-md-9 col-sm-9"><input type="text" class="form-control" name="address" maxlength="100" value="<?php echo set_value('address'); ?>" /></div>
 	            	<div class="col-md-3 col-sm-3"><label>Price</label></div>
 	            	<div class="col-md-9 col-sm-9"><input type="number" class="form-control" name="price" maxlength="50" <?php echo set_value('price'); ?> /></div>
 	            	<div class="col-md-3 col-sm-3"><label>Available</label></div>
@@ -263,6 +267,8 @@
 		            	<select class="form-control" name="type" id="type">
 		            		<option value="Apartment">Apartment</option>
 		            		<option value="House">House</option>
+		            		<option value="Studio">Studio</option>
+		            		<option value="Unit">Unit</option>
 		            	</select>
 	            	</div>
 	            	<div class="col-md-3 col-sm-3"><label>Optional</label></div>

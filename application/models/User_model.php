@@ -173,7 +173,7 @@ class User_model extends CI_Model{
 		$DB->where('uid', $uid);
 		$num = $DB->count_all_results();
 		$num = ceil($num/10);
-		return $DB->count_all_results();
+		return $num;
 	}
 	
 	public function getRentalDetail($uid, $id){
@@ -192,6 +192,7 @@ class User_model extends CI_Model{
 								'city' => $row->city,
 								'districts' => $row->districts,
 								'suburbs' => $row->suburbs,
+								'address' => $row->address,
 								'price' => $row->price,
 								'available' => $row->available,
 								'bedroom' => $row->bedroom,
@@ -221,7 +222,7 @@ class User_model extends CI_Model{
 		return json_encode($array);
 	}
 	
-	public function addRental($uid,$publisher,$phone,$email,$title,$city,$districts,$suburbs,$price,$available,$bedroom,$bathroom,$parking,$type,$entire,$kitchen,$balcony,$gym,$pets,$tv,$microware,$hob,$oven,$fridge,$washmachine,$dryer,$dishwasher,$heater,$tables,$beds,$chairs,$introduction){
+	public function addRental($uid,$publisher,$phone,$email,$title,$city,$districts,$suburbs,$address,$price,$available,$bedroom,$bathroom,$parking,$type,$entire,$kitchen,$balcony,$gym,$pets,$tv,$microware,$hob,$oven,$fridge,$washmachine,$dryer,$dishwasher,$heater,$tables,$beds,$chairs,$introduction){
 		$DB = $this->load->database('estate', TRUE);
 		$data = array(
 							'id' => null,
@@ -230,10 +231,11 @@ class User_model extends CI_Model{
 							'phone' => $phone,
 							'email' => $email,
 							'title' => $title,
-							'date' => date("d/m/Y"),
+							'date' => date("m/d/Y"),
 							'city' => $city,
 							'districts' => $districts,
 							'suburbs' => $suburbs,
+							'address' => $address,
 							'price' => $price,
 							'available' => $available,
 							'bedroom' => $bedroom,
@@ -273,16 +275,17 @@ class User_model extends CI_Model{
 	    }
 	}
 	
-	public function updateRental($uid,$id,$phone,$email,$title,$city,$districts,$suburbs,$price,$available,$bedroom,$bathroom,$parking,$type,$entire,$kitchen,$balcony,$gym,$pets,$tv,$microware,$hob,$oven,$fridge,$washmachine,$dryer,$dishwasher,$heater,$tables,$beds,$chairs,$introduction){
+	public function updateRental($uid,$id,$phone,$email,$title,$city,$districts,$suburbs,$address,$price,$available,$bedroom,$bathroom,$parking,$type,$entire,$kitchen,$balcony,$gym,$pets,$tv,$microware,$hob,$oven,$fridge,$washmachine,$dryer,$dishwasher,$heater,$tables,$beds,$chairs,$introduction){
 		$DB = $this->load->database('estate', TRUE);
 		$data = array(
 							'phone' => $phone,
 							'email' => $email,
 							'title' => $title,
-							'date' => date("d/m/Y"),
+							'date' => date("m/d/Y"),
 							'city' => $city,
 							'districts' => $districts,
 							'suburbs' => $suburbs,
+							'address' => $address,
 							'price' => $price,
 							'available' => $available,
 							'bedroom' => $bedroom,

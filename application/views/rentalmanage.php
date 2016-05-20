@@ -135,7 +135,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        <li><a href="<?=base_url("/user/logout");?>"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
                         </li>
                     </ul>
                     <!-- /.dropdown-user -->
@@ -153,9 +153,11 @@
 						<li>
                             <a href="<?=base_url("/user/rental");?>"><i class="fa fa-building fa-fw"></i> Estate Rental</a>
                         </li>
+                        <!--
 						<li>
                             <a href="<?=base_url("/user/sale");?>"><i class="fa fa-home fa-fw"></i> Estate Sale</a>
-                        </li>                        
+                        </li>    
+                        -->                    
                     </ul>
                     <br>
                     <center>
@@ -204,7 +206,7 @@
     	$(function () {
     		$('select#pagenum').change(function(){
 		        var pagenum = $(this).children('option:selected').val();
-		        window.location.href = "<?=base_url("/user/rental/");?>"+pagenum;
+		        window.location.href = "<?=base_url("/user/rental");?>/"+pagenum;
 	        });
 	      });
     </script>
